@@ -1,10 +1,14 @@
 "use client";
 import { Input } from "@/components/ui/input";
-import { Bot, X } from "lucide-react";
+import { Bot, Send, X } from "lucide-react";
+import { useChat } from "ai/react";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 export default function Chatbot() {
   const [open, setOpen] = useState(false);
+  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat();
+
   return (
     <div className="absolute bottom-4 right-4 z-[99]">
       <div
@@ -28,9 +32,57 @@ export default function Chatbot() {
                 Ask me anything about Nextjs Starter Kit
               </p>
             </div>
-            <div className="flex  items-end justify-center gap-2 w-full">
-              <Input className="w-full" placeholder="Ask me anything" />
+            
+            {/* Messages container */}
+            <div className="flex-1 w-full overflow-y-auto space-y-4">
+              {messages.map((message) => (
+                <div
+                  key={message.id}
+                  className={`flex ${
+                    message.role === "assistant"
+                      ? "justify-start"
+                      : "justify-end"
+                  }`}
+                >
+                  <div
+                    className={`rounded-lg px-3 py-2 max-w-[80%] ${
+                      message.role === "assistant"
+                        ? "bg-muted"
+                        : "bg-primary text-primary-foreground"
+                    }`}
+                  >
+                    {message.content}
+                  </div>
+                </div>
+              ))}
+              {isLoading && (
+                <div className="flex justify-start">
+                  <div className="rounded-lg px-3 py-2 max-w-[80%] bg-muted">
+                    Thinking...
+                  </div>
+                </div>
+              )}
             </div>
+
+            {/* Input form */}
+            <form
+              onSubmit={handleSubmit}
+              className="flex items-end justify-center gap-2 w-full"
+            >
+              <Input
+                value={input}
+                onChange={handleInputChange}
+                placeholder="Ask me anything"
+                className="w-full"
+              />
+              <Button
+                type="submit"
+                size="icon"
+                disabled={isLoading || !input.trim()}
+              >
+                <Send className="h-4 w-4" />
+              </Button>
+            </form>
           </div>
         </div>
       )}
