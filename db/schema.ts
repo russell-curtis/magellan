@@ -2,8 +2,10 @@ import {
   boolean,
   integer,
   pgTable,
+  serial,
   text,
   timestamp,
+  uuid,
 } from "drizzle-orm/pg-core";
 
 // Better Auth Tables
@@ -82,4 +84,24 @@ export const subscription = pgTable("subscription", {
   metadata: text("metadata"), // JSON string
   customFieldData: text("customFieldData"), // JSON string
   userId: text("userId").references(() => user.id),
+});
+
+// Programs table for CRBI programs
+export const programs = pgTable("programs", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  name: text("name").notNull(),
+  description: text("description"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Clients table for CRM
+export const clients = pgTable("clients", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  programId: uuid("program_id").references(() => programs.id),
+  assignedTo: text("assigned_to").references(() => user.id),
+  status: text("status").default("active"), // active, on-hold, withdrawn
+  createdAt: timestamp("created_at").defaultNow()
 });

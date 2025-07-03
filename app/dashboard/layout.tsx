@@ -1,20 +1,22 @@
-import { ReactNode } from "react";
-import DashboardTopNav from "./_components/navbar";
-import DashboardSideBar from "./_components/sidebar";
+import { Sidebar } from "@/components/ui/Sidebar"
+import { Header } from "@/components/ui/Header"
 import Chatbot from "./_components/chatbot";
 
-export default async function DashboardLayout({
-  children,
-}: {
-  children: ReactNode;
+export default function DashboardLayout({ 
+  children 
+}: { 
+  children: React.ReactNode 
 }) {
   return (
-    <div className="flex h-screen overflow-hidden w-full">
-      <DashboardSideBar />
-      <main className="flex-1 overflow-y-auto">
-        <DashboardTopNav>{children}</DashboardTopNav>
-      </main>
+    <div className="flex h-screen overflow-hidden">
+      <Sidebar />
+      <div className="flex flex-col flex-1">
+        <Header />
+        <main className="flex-1 overflow-y-auto p-6 bg-muted/50">
+          {children}
+        </main>
+      </div>
       <Chatbot />
     </div>
-  );
+  )
 }

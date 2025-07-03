@@ -98,6 +98,42 @@
     --shadow-2xl: 0px 16px 32px rgba(0, 0, 0, 0.1);
 }
 
+.dark {
+    /* Apple Dark Theme Colors */
+    --background: #1c1c1e;
+    --foreground: #ffffff;
+    --card: #2c2c2e;
+    --card-foreground: #ffffff;
+    --popover: #2c2c2e;
+    --popover-foreground: #ffffff;
+    --primary: #0a84ff; /* Apple Blue (Dark Mode) */
+    --primary-foreground: #ffffff;
+    --secondary: #2c2c2e; /* Apple Dark Gray */
+    --secondary-foreground: #f5f5f7;
+    --muted: #2c2c2e;
+    --muted-foreground: #8e8e93;
+    --accent: #0a84ff; /* Apple Blue (Dark Mode) */
+    --accent-foreground: #ffffff;
+    --destructive: #ff453a; /* Apple Red (Dark Mode) */
+    --destructive-foreground: #ffffff;
+    --border: #38383a; /* Darker border for dark mode */
+    --input: #38383a;
+    --ring: #0a84ff;
+    --chart-1: #0a84ff; /* Apple Blue (Dark Mode) */
+    --chart-2: #30d158; /* Apple Green (Dark Mode) */
+    --chart-3: #ff9f0a; /* Apple Orange (Dark Mode) */
+    --chart-4: #ffd60a; /* Apple Yellow (Dark Mode) */
+    --chart-5: #bf5af2; /* Apple Purple (Dark Mode) */
+    --sidebar: #2c2c2e;
+    --sidebar-foreground: #ffffff;
+    --sidebar-primary: #0a84ff;
+    --sidebar-primary-foreground: #ffffff;
+    --sidebar-accent: #38383a;
+    --sidebar-accent-foreground: #f5f5f7;
+    --sidebar-border: #38383a; /* Darker border for dark mode */
+    --sidebar-ring: #0a84ff;
+}
+
 @layer base {
     * {
         @apply border-border outline-ring/50;
@@ -124,4 +160,17 @@
     h6 {
         @apply font-medium tracking-tight;
     }
+}
+
+/* Override focus styles for theme toggle */
+.theme-toggle {
+    outline: none !important;
+    box-shadow: none !important;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.theme-toggle:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    ring: 0 !important;
 }

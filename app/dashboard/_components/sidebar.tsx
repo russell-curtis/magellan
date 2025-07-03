@@ -3,11 +3,15 @@
 import UserProfile from "@/components/user-profile";
 import clsx from "clsx";
 import {
-  Banknote,
-  HomeIcon,
-  LucideIcon,
-  MessageCircleIcon,
+  Home,
+  Users,
+  Folder,
+  MessagesSquare,
+  Bell,
+  Building2,
   Settings,
+  CreditCard,
+  MessageCircleIcon,
   Upload,
 } from "lucide-react";
 import Link from "next/link";
@@ -16,14 +20,14 @@ import { usePathname, useRouter } from "next/navigation";
 interface NavItem {
   label: string;
   href: string;
-  icon: LucideIcon;
+  icon: React.ElementType;
 }
 
 const navItems: NavItem[] = [
   {
     label: "Overview",
     href: "/dashboard",
-    icon: HomeIcon,
+    icon: Home,
   },
   {
     label: "Chat",
@@ -36,9 +40,39 @@ const navItems: NavItem[] = [
     icon: Upload,
   },
   {
-    label: "Payment Gated",
+    label: "Clients",
+    href: "/dashboard/clients",
+    icon: Users,
+  },
+  {
+    label: "Programs",
+    href: "/dashboard/programs",
+    icon: Folder,
+  },
+  {
+    label: "Documents",
+    href: "/dashboard/documents",
+    icon: Folder,
+  },
+  {
+    label: "Messages",
+    href: "/dashboard/messages",
+    icon: MessagesSquare,
+  },
+  {
+    label: "Notifications",
+    href: "/dashboard/notifications",
+    icon: Bell,
+  },
+  {
+    label: "Marketplace",
+    href: "/dashboard/marketplace",
+    icon: Building2,
+  },
+  {
+    label: "Payment",
     href: "/dashboard/payment",
-    icon: Banknote,
+    icon: CreditCard,
   },
 ];
 
@@ -55,21 +89,21 @@ export default function DashboardSideBar() {
             className="flex items-center font-semibold hover:cursor-pointer"
             href="/"
           >
-            <span>Nextjs Starter Kit</span>
+            <span>Magellan</span>
           </Link>
         </div>
 
-        <nav className="flex flex-col h-full justify-between items-start w-full space-y-1">
+        <nav className="flex flex-col h-full justify-between items-start w-full">
           <div className="w-full space-y-1 p-4">
             {navItems.map((item) => (
               <div
                 key={item.href}
                 onClick={() => router.push(item.href)}
                 className={clsx(
-                  "flex items-center gap-2 w-full rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:cursor-pointer",
-                  pathname === item.href
-                    ? "bg-primary/10 text-primary hover:bg-primary/20"
-                    : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                  "flex items-center gap-3 w-full rounded-md px-3 py-2 text-sm transition-colors hover:cursor-pointer",
+                  pathname === item.href || pathname?.startsWith(item.href + "/")
+                    ? "bg-muted text-foreground"
+                    : "hover:bg-muted/40 text-muted-foreground"
                 )}
               >
                 <item.icon className="h-4 w-4" />
@@ -78,15 +112,15 @@ export default function DashboardSideBar() {
             ))}
           </div>
 
-          <div className="flex flex-col gap-2 w-full">
+          <div className="flex flex-col gap-2 w-full mt-auto">
             <div className="px-4">
               <div
                 onClick={() => router.push("/dashboard/settings")}
                 className={clsx(
-                  "flex items-center w-full gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:cursor-pointer",
-                  pathname === "/dashboard/settings"
-                    ? "bg-primary/10 text-primary hover:bg-primary/20"
-                    : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                  "flex items-center w-full gap-3 rounded-md px-3 py-2 text-sm transition-colors hover:cursor-pointer",
+                  pathname === "/dashboard/settings" || pathname?.startsWith("/dashboard/settings/")
+                    ? "bg-muted text-foreground"
+                    : "hover:bg-muted/40 text-muted-foreground"
                 )}
               >
                 <Settings className="h-4 w-4" />
